@@ -15,4 +15,19 @@ print("param passed from the parent nb - ",paramvalue)
 
 # COMMAND ----------
 
-dbutils.notebook.exit(0)
+dbutils.widgets.text("table_name", "cust")
+
+# COMMAND ----------
+
+text_box_value=dbutils.widgets.get("table_name")
+print(text_box_value)
+
+# COMMAND ----------
+
+#Spark SQL
+spark.read.table(text_box_value).display()#domain specific lang(FBP)
+spark.sql(f"select * from {text_box_value}").display()#Declarative lang
+
+# COMMAND ----------
+
+dbutils.notebook.exit("notebook completed successfully")
